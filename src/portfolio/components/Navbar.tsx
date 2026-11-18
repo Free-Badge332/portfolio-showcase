@@ -57,29 +57,42 @@ const Navbar = () => {
         <stop offset="0%" stopColor="#22d3ee" />
         <stop offset="100%" stopColor="#a78bfa" />
       </linearGradient>
+      <clipPath id="logoBadgeClip">
+        <rect x="6" y="6" width="88" height="88" rx="26" />
+      </clipPath>
     </defs>
 
-    <circle
-      className="logo-orbit"
-      cx="50"
-      cy="50"
-      r="43"
-      fill="none"
-      stroke="url(#logoGradient)"
-      strokeWidth="2"
-      strokeDasharray="12 7"
-    />
+    <rect x="6" y="6" width="88" height="88" rx="26" fill="url(#logoGradient)" />
+
+    <g clipPath="url(#logoBadgeClip)">
+      <g transform="rotate(20 50 50)">
+        <rect
+          className="logo-sheen"
+          x="-30"
+          y="-45"
+          width="16"
+          height="190"
+          fill="#ffffff"
+          opacity="0.25"
+        />
+      </g>
+    </g>
 
     <path
-      d="M25 68 V34 L40 53 L50 39 L60 53 L75 34 V68"
+      d="M68 28 H32 V72 H68"
       fill="none"
-      stroke="url(#logoGradient)"
-      strokeWidth="5"
+      stroke="#0b080c"
+      strokeWidth="11"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-
-    <circle cx="76" cy="24" r="4" fill="#22d3ee" />
+    <path
+      d="M32 50 H56"
+      fill="none"
+      stroke="#0b080c"
+      strokeWidth="11"
+      strokeLinecap="round"
+    />
   </svg>
 
   <span className="logo-text">EZADIN<span>.</span></span>

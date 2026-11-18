@@ -55,9 +55,8 @@
   overflow: visible;
 }
 
-.logo-orbit {
-  transform-origin: 50px 50px;
-  animation: logoSpin 12s linear infinite;
+.logo-sheen {
+  animation: logoSheen 5.5s ease-in-out infinite;
 }
 
 .logo-text {
@@ -76,14 +75,19 @@
   transition: transform 0.3s ease;
 }
 
-@keyframes logoSpin {
-  to {
-    transform: rotate(360deg);
+@keyframes logoSheen {
+  0%,
+  12% {
+    transform: translateX(0);
+  }
+  45%,
+  100% {
+    transform: translateX(150px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-orbit {
+  .logo-sheen {
     animation: none;
   }
 }
