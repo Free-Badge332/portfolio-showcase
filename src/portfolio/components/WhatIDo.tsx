@@ -1,164 +1,97 @@
-// @ts-nocheck -- imported as-is from the original portfolio repo
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { Code2, Smartphone } from "lucide-react";
+import portrait from "@/assets/ezadin-portrait.png.asset.json";
 import "./styles/WhatIDo.css";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const WhatIDo = () => {
-  const containerRef = useRef<(HTMLDivElement | null)[]>([]);
-  const setRef = (el: HTMLDivElement | null, index: number) => {
-    containerRef.current[index] = el;
-  };
   useEffect(() => {
-    if (ScrollTrigger.isTouch) {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
-        }
-      });
-    }
+    const section = document.querySelector(".whatIDO");
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      document.body.classList.toggle("viewing-services", entry?.isIntersecting ?? false);
+    }, { threshold: 0 });
+    observer.observe(section);
     return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
-      });
+      observer.disconnect();
+      document.body.classList.remove("viewing-services");
     };
   }, []);
   return (
-    <div className="whatIDO">
-      <div className="what-box">
-        <h2 className="title">
-          W<span className="hat-h2">HAT</span>
-          <div>
-            I<span className="do-h2"> DO</span>
+    <section className="whatIDO" aria-labelledby="what-heading">
+      <div className="what-layout">
+        <div className="what-box what-profile">
+          <div className="what-heading">
+            <span className="what-eyebrow">// Web & mobile development</span>
+            <h2 id="what-heading">WHAT <span>I DO</span></h2>
           </div>
-        </h2>
-      </div>
-      <div className="what-box">
-        <div className="what-box-in">
-          <div className="what-border2">
-            <svg width="100%">
-              <line
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-              <line
-                x1="100%"
-                y1="0"
-                x2="100%"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-            </svg>
-          </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 0)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="100%"
-                  y2="0"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
-
-            <div className="what-content-in">
-              <h3>DEVELOP</h3>
-              <h4>Description</h4>
-              <p>
-                I build responsive, user-friendly web applications using modern frontend and backend technologies. Passionate about clean code, scalable solutions, and creating seamless digital experiences.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">JavaScript</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">Laravel</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Css</div>
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Next.js</div>
-                <div className="what-tags">Express.js</div>
-                <div className="what-tags">PHP</div>
-                <div className="what-tags">MySql</div>
+          <figure className="what-portrait">
+            <img
+              src={portrait.url}
+              alt="Ezadin Badiru outdoors, wearing a white sweater and blue sunglasses"
+              width={640}
+              height={640}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <span>Ezadin Badiru</span>
+              <span>Full-stack & mobile developer</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div className="what-box what-services">
+          <div className="what-box-in">
+            <article className="what-content" aria-labelledby="web-heading">
+              <div className="what-service-heading">
+                <span className="what-number">01 / DEVELOP</span>
+                <Code2 aria-hidden="true" size={26} strokeWidth={1.5} />
               </div>
-              <div className="what-arrow"></div>
-            </div>
-          </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 1)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
-            <div className="what-content-in">
-              <h3>MOBILE</h3>
-              <h4>Description</h4>
-              <p>
-                I build cross-platform mobile applications with Flutter and Dart, integrating Firebase authentication, real-time data, and reliable APIs for practical everyday experiences.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                {['Flutter', 'Dart', 'Firebase', 'REST APIs', 'State Management', 'Mobile UI'].map(skill => <div className="what-tags" key={skill}>{skill}</div>)}
+              <div className="what-content-in">
+                <h3 id="web-heading">Full-stack web development</h3>
+                <p>
+                  I build responsive, user-friendly web applications using modern
+                  frontend and backend technologies. Passionate about clean code,
+                  scalable solutions, and creating seamless digital experiences.
+                </p>
+                <div className="what-tool-group">
+                  <h4>Frontend</h4>
+                  <ul className="what-content-flex">
+                    {['JavaScript', 'TypeScript', 'React', 'Next.js', 'CSS'].map(skill => <li className="what-tags" key={skill}>{skill}</li>)}
+                  </ul>
+                </div>
+                <div className="what-tool-group">
+                  <h4>Backend & data</h4>
+                  <ul className="what-content-flex">
+                    {['Node.js', 'Express.js', 'Laravel', 'PHP', 'MySQL'].map(skill => <li className="what-tags" key={skill}>{skill}</li>)}
+                  </ul>
+                </div>
               </div>
-              <div className="what-arrow"></div>
-            </div>
+            </article>
+            <article className="what-content" aria-labelledby="mobile-heading">
+              <div className="what-service-heading">
+                <span className="what-number">02 / MOBILE</span>
+                <Smartphone aria-hidden="true" size={26} strokeWidth={1.5} />
+              </div>
+              <div className="what-content-in">
+                <h3 id="mobile-heading">Cross-platform mobile apps</h3>
+                <p>
+                  I build cross-platform mobile applications with Flutter and Dart,
+                  integrating Firebase authentication, real-time data, and reliable
+                  APIs for practical everyday experiences.
+                </p>
+                <div className="what-tool-group">
+                  <h4>Mobile stack</h4>
+                  <ul className="what-content-flex">
+                    {['Flutter', 'Dart', 'Firebase', 'REST APIs', 'State Management', 'Mobile UI'].map(skill => <li className="what-tags" key={skill}>{skill}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default WhatIDo;
-
-function handleClick(container: HTMLDivElement) {
-  container.classList.toggle("what-content-active");
-  container.classList.remove("what-sibling");
-  if (container.parentElement) {
-    const siblings = Array.from(container.parentElement.children);
-
-    siblings.forEach((sibling) => {
-      if (sibling !== container) {
-        sibling.classList.remove("what-content-active");
-        sibling.classList.toggle("what-sibling");
-      }
-    });
-  }
-}

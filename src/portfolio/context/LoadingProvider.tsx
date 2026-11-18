@@ -1,6 +1,7 @@
 // @ts-nocheck -- imported as-is from the original portfolio repo
 import {
   createContext,
+  useCallback,
   PropsWithChildren,
   useContext,
   useEffect,
@@ -18,7 +19,12 @@ export const LoadingContext = createContext<LoadingType | null>(null);
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [loading, setLoading] = useState(0);
+  const [loading, setLoadingProgress] = useState(0);
+  // Late model progress must not undo the completed fallback and trap the page.
+  const setLoading = useCallback((percent: number) => {
+    if (!Number.isFinite(percent)) return;
+    setLoadingProgress(current => Math.max(current, Math.min(100, Math.max(0, percent))));
+  }, []);
 
   const value = {
     isLoading,
@@ -28,7 +34,7 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const timeout = window.setTimeout(() => setLoading(100), 12000);
     return () => window.clearTimeout(timeout);
-  }, []);
+  }, [setLoading]);
 
   return (
     <LoadingContext.Provider value={value as LoadingType}>
